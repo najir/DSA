@@ -17,6 +17,9 @@ int main() {
 
 // Function Definitions
 
+/* Queue unit tests
+ *
+ */
 int unitTest::qTest1(int x) {
 	APPLICATION_H::bQueue qObject = APPLICATION_H::bQueue();
 	qObject.queue(x);
@@ -44,6 +47,9 @@ int unitTest::qTest4(int x) {
 
 }
 
+/* Stack Unit Tests
+* 
+*/
 
 int unitTest::sTest1(int x) {
 
@@ -58,5 +64,37 @@ int unitTest::sTest3(int x) {
 }
 
 int unitTest::sTest4(int x) {
+
+}
+
+/* BS Tree Unit Tests
+* 
+*/
+int bsTest1(int x) {
+
+}
+int bsTest2(int x) {
+
+}
+int bsTest3(int x) {
+
+}
+int bsTest4(int x) {
+
+}
+
+/* RB Tree Unit Tests
+* 
+*/
+int rbTest1(int x) {
+
+}
+int rbTest2(int x) {
+
+}
+int rbTest3(int x) {
+
+}
+int rbTest4(int x) {
 
 }
