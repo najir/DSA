@@ -7,6 +7,7 @@
 #include "stdio.h"
 
 // Global Variables
+int ARRSIZE = 16;      // Initial Array size for all current arrays
 
 
 int main() {
@@ -21,13 +22,14 @@ int main() {
  ******************************/
 APPLICATION_H::dynArray() {
 	size = ARRSIZE;
-	int* myArray = new int[size];
+	myArray = new int[size];
 };
+
 bool dynArray::insertValue(int x) {
 	int loopValue;
 	int iter, returnValue = 0;
-	while (!loopValue || iter >= size) {
-		iter += 1;
+	while (!loopValue || iter >= size) {     // If loop value is ever 0 or empty, and/or if we iterate beyond the size of the array
+		iter += 1;                           // it will end the loop, check the location and insert the data if it's within bounds
 		loopValue = myArray[iter-1];
 	}
 	if !(iter - 1 >= size) {
@@ -37,11 +39,12 @@ bool dynArray::insertValue(int x) {
 	return returnValue;
 
 }
+
 bool dynArray::deleteValue(int x){
 	int loopValue = 0;
 	int iter, returnValue = 0;
-	while (loopValue == x || iter >= size) {
-		iter += 1;
+	while (loopValue == x || iter >= size) {  // loopValue is the data contained at iter location of the array, if we go out
+		iter += 1;                            // of bounds, or find the exact location, the loop ends and we replace the data with 0
 		loopValue = myArray[iter - 1];
 	}
 	if (loopValue == x) {
@@ -51,11 +54,28 @@ bool dynArray::deleteValue(int x){
 	return returnValue;
 
 }
+
 bool dynArray::expandArray() {
+	int returnValue = 0;
+	int arraySize = sizeof(myArray)*2;
 
+	int* tempArray = new int[arraySize];
+
+	for (int i = 0; i < iter - 1; i++) {
+		tempArray[i] = myArray[i];
+	}
+	delete[] myArray;
+	myArray = tempArray;
+
+	return returnValue;
 }
-bool dynArray::compressArray() {
 
+bool dynArray::compressArray() {
+	int returnValue = 0;
+
+
+
+	return returnValue;
 }
 
 
@@ -65,6 +85,7 @@ bool dynArray::compressArray() {
 APPLICATION_H::bNode(int x = 0)() {
 	value = x;
 };
+
 bool bNode::setNext(bNode* refNode) {
 	bool returnValue = 0;
 	if (refNode) {
@@ -73,6 +94,7 @@ bool bNode::setNext(bNode* refNode) {
 	}
 	return returnValue;
 }
+
 bool bNode::setPrevious(bNode* refNode) {
 	bool returnValue = 0;
 	if (refNode) {
@@ -81,6 +103,7 @@ bool bNode::setPrevious(bNode* refNode) {
 	}
 	return returnValue;
 }
+
 int bNode::viewValue() {
 	return value;
 }
@@ -91,6 +114,7 @@ int bNode::viewValue() {
 APPLICATION_H::bStack() {
 	head = void;
 };
+
 int bStack::peek() {
 	int returnValue = 0;
 	if (head) {
@@ -98,6 +122,7 @@ int bStack::peek() {
 	}
 	return returnValue;
 }
+
 int bStack::pop(){
 	int returnValue = 0;
 	if (head) {
@@ -107,6 +132,7 @@ int bStack::pop(){
 	}
 	return returnValue;
 }
+
 bool bStack::push(int x) {
 	int returnValue = 0;
 	if (head) {
@@ -129,6 +155,7 @@ APPLICATION_H::bQueue() {
 	head = void;
 	tail = void;
 };
+
 int bQueue::peek() {
 	int returnValue = 0;
 	if (head) {
@@ -136,6 +163,7 @@ int bQueue::peek() {
 	}
 	return returnValue;
 }
+
 int bQueue::dequeue() {
 	int returnValue = 0
 	if (head) {
@@ -146,6 +174,7 @@ int bQueue::dequeue() {
 	}
 	return returnValue;
 }
+
 bool bQueue::queue(int x) {
 	int returnValue = 0;
 	if (head) {
@@ -169,25 +198,30 @@ bool bQueue::queue(int x) {
 ******************************/
 APPLICATION_H::bsLeaf(int x = 0) {
 	value = x;
-	left = void;
-	right = void;
+	left = nullptr;
+	right = nullptr;
 };
+
 int bsLeaf::viewValue() {
 	return value;
 }
+
 void bsLeaf::setLeft(bsLeaf* refLeaf) {
 	left = refLeaf;
 }
+
 void bsLeaf::setRight(bsLeaf* refLeaf) {
 	right = refLeaf;
 }
 
 APPLICATION_H::bsTree() {
-	root = void;
+	root = nullptr;
 };
+
 bool bsTree::insertLeaf(int x) {
 
 }
+
 int bsTree::viewDepth() {
 
 }
@@ -196,12 +230,21 @@ int bsTree::viewDepth() {
 /******************************
 *  Red Black Search Tree Functions
 ******************************/
-APPLICATION_H::rbTree() {
-	root = void;
+// Leaf initial color is always red(0)
+APPLICATION_H::rbLeaf() {
+	left = nullptr;
+	right = nullptr;
+	color = 0;
 };
+
+APPLICATION_H::rbTree() {
+	root = nullptr;
+};
+
 bool rbTree::insertLeaf(int x){
 
 }
+
 int rbTree::viewDepth() {
 
 }

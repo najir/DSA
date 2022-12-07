@@ -8,6 +8,7 @@
 class dynArray {
 private:
 	int size;
+	int* myArray = nullptr;
 public:
 	bool insertValue(int x);
 	bool deleteValue(int x);
