@@ -56,9 +56,8 @@ class bsTree {
 private:
 	bsLeaf* root;
 public:
-	bsLeaf* viewRoot();
 	int viewDepth();
-	bool setRoot();
+	bool insertLeaf(int x);
 };
 
 class rbLeaf {
@@ -78,8 +77,7 @@ class rbTree {
 private:
 	rbLeaf* root;
 public:
-	bool setRoot();
-	rbLeaf* viewRoot();
+	bool insertLeaf(int x);
 	int viewDepth();
 
 };
