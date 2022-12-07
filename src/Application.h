@@ -36,8 +36,51 @@ public:
 	int dequeue();
 };
 
-/* Future Tree info
- *
+/* Tree class initalization
+ * Currently contains leaf and basic tree functions. Will be adding
+ * Search/insert Algorithms and creating seperate tree/leaf classes
 */
 
+class bsLeaf {
+private:
+	int value;
+	bsLeaf* left;
+	bsLeaf* right;
+public:
+	int viewValue();
+	bool setLeft();
+	bool setRight();
+};
+
+class bsTree {
+private:
+	bsLeaf* root;
+public:
+	bsLeaf* viewRoot();
+	int viewDepth();
+	bool setRoot();
+};
+
+class rbLeaf {
+private:
+	int value;
+	rbLeaf* left;
+	rbLeaf* right;
+	int color;         // Red = 0 Black = 1
+public:
+	int viewvalue();
+	bool setLeft();
+	bool setRight();
+	bool swapColor();  // Bool will return 0 for red swap and 1 for black swap
+};
+
+class rbTree {
+private:
+	rbLeaf* root;
+public:
+	bool setRoot();
+	rbLeaf* viewRoot();
+	int viewDepth();
+
+};
 #endif
