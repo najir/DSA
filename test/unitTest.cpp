@@ -17,10 +17,26 @@ int main() {
 
 // Function Definitions
 
-/* 
+/*******************************
+ *  Dynamic Array unit tests
+ *******************************/
+int UNITTEST_H::dynTest1(int x) {
+
+}
+int UNITTEST_H::dynTest2(int x) {
+
+}
+int UNITTEST_H::dynTest3(int x) {
+
+}
+int UNITTEST_H::dynTest4(int x) {
+
+}
+
+/******************************* 
  *  Queue unit tests
- */
-int unitTest::qTest1(int x) {
+ *******************************/
+int UNITTEST_H::qTest1(int x) {
 	APPLICATION_H::bQueue qObject = APPLICATION_H::bQueue();
 	qObject.queue(x);
 	qObject.queue(x + 2);
@@ -29,13 +45,13 @@ int unitTest::qTest1(int x) {
 	return qObject.peek();
 }
 
-int unitTest::qTest2(int x) {
+int UNITTEST_H::qTest2(int x) {
 	APPLICATION_H::bQueue qObject = APPLICATION_H::bQueue();
 	qObject.dequeue();
 	return qObject.peek();
 }
 
-int unitTest::qTest3(int x) {
+int UNITTEST_H::qTest3(int x) {
 	APPLICATION_H::bQueue qObject = APPLICATION_H::bQueue();
 	qObject.queue(x);
 	qObject.dequeue();
@@ -43,58 +59,58 @@ int unitTest::qTest3(int x) {
 	return qObject.peek();
 }
 
-int unitTest::qTest4(int x) {
+int UNITTEST_H::qTest4(int x) {
 
 }
 
-/* 
+/******************************* 
 *  Queue unit tests
-*/
+*******************************/
 
-int unitTest::sTest1(int x) {
-
-}
-
-int unitTest::sTest2(int x) {
+int UNITTEST_H::sTest1(int x) {
 
 }
 
-int unitTest::sTest3(int x) {
+int UNITTEST_H::sTest2(int x) {
 
 }
 
-int unitTest::sTest4(int x) {
+int UNITTEST_H::sTest3(int x) {
 
 }
 
-/* 
+int UNITTEST_H::sTest4(int x) {
+
+}
+
+/******************************* 
 *  BS Tree Unit Tests
-*/
-int bsTest1(int x) {
+*******************************/
+int UNITTEST_H::bsTest1(int x) {
 
 }
-int bsTest2(int x) {
+int UNITTEST_H::bsTest2(int x) {
 
 }
-int bsTest3(int x) {
+int UNITTEST_H::bsTest3(int x) {
 
 }
-int bsTest4(int x) {
+int UNITTEST_H::bsTest4(int x) {
 
 }
 
-/* 
+/******************************* 
 *  RB Tree Unit Tests
-*/
-int rbTest1(int x) {
+*******************************/
+int UNITTEST_H::rbTest1(int x) {
 
 }
-int rbTest2(int x) {
+int UNITTEST_H::rbTest2(int x) {
 
 }
-int rbTest3(int x) {
+int UNITTEST_H::rbTest3(int x) {
 
 }
-int rbTest4(int x) {
+int UNITTEST_H::rbTest4(int x) {
 
 }
