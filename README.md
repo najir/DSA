@@ -14,9 +14,10 @@ DSA(Data Structures & Algorithms) is a simple project created to serve as practi
 Important updates and notes will also be found here as neccessary:
 
 ## Data Structures
-Stack and queue use the same Node object for implementation, normally the stack would not be a doubly linked list.
-A majority of these structures will require algorithms to complete their inserts/retreivals. So 
-they will be incomplete until those are finished as well.
+- Stack and queue use the same Node object for implementation, normally the stack would not be a doubly linked list.
+- A majority of these structures will require algorithms to complete their inserts/retreivals. So 
+  they will be incomplete until those are finished as well.
+- Dynamic Array is an unsorted array with O(N) insert/delete operations
 ______________________
 ### Stack
 Standard stack implementation with a single head node that reference the next node in the form of a linked list. 
