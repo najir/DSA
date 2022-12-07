@@ -12,6 +12,9 @@ private:
 public:
 	bool setNext(bNode* refNode);
 	bool setPrevious(bNode* refNode);
+	int viewValue();
+	bNode viewNext();
+	bNode viewPrevious();
 };
 
 class bStack {

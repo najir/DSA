@@ -1,7 +1,7 @@
 # DSA
 Isaac Perks 12/5/22
 <br />
-## Description
+# Description
 _____________________
 DSA(Data Structures & Algorithms) is a simple project created to serve as practice for myself and proof of work for others.
 	<br />
@@ -13,13 +13,13 @@ DSA(Data Structures & Algorithms) is a simple project created to serve as practi
 	<br />
 Important updates and notes will also be found here as neccessary:
 
-### Data Structures
+## Data Structures
 Stack and queue use the same Node object for implementation.
 ______________________
-#### Stack
+### Stack
 Standard stack implementation with a single head node that reference the next node in the form of a linked list. 
 Stack contains pop and push functions to add and remove from the stack, along with a peek function for viewing.
-#### Queue
+### Queue
 Standard Queue structure, a head and tail node in the form of a doubly linked list.
 Contains functions for queuing and dequeuing, along with peeking at the top of the queue.
 
