@@ -17,7 +17,7 @@ Important updates and notes will also be found here as neccessary:
 - Stack and queue use the same Node object for implementation, normally the stack would not be a doubly linked list.
 - A majority of these structures will require algorithms to complete their inserts/retreivals. So 
   they will be incomplete until those are finished as well.
-- Dynamic Array is an unsorted array with O(N) insert/delete operations
+- Dynamic Array is an unsorted array with O(N) insert/delete operations and is implement as an integer array
 ______________________
 ### Stack
 Standard stack implementation with a single head node that reference the next node in the form of a linked list. 
@@ -27,7 +27,8 @@ Standard Queue structure, a head and tail node in the form of a doubly linked li
 Contains functions for queuing and dequeuing, along with peeking at the top of the queue.
 ### Dynamic Array
 Basic Array structure which will use c++ new/delete and pointers to create an array that can increase
-and decrease in size as needed.
+and decrease in size as needed. Current implementation is simple int array. A pointer array would include
+a special delete function for clearing individual pointers.
 ### Binary search tree
 Basic implementation of core functions and leaf node for a  binary search tree. Includes left/right access to leafs
 and currently incomplete insert/delete functions
