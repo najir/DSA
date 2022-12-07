@@ -1,6 +1,21 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
+
+/* Dynamic Array class/method initalization
+ *  
+ */
+class dynArray {
+private:
+	int size;
+public:
+	bool insertValue(int x);
+	bool deleteValue(int x);
+	bool expandArray();
+	bool compressArray();
+};
+
+
 /* Queue and Stack class/method initialzing
  * Node class contains data and methods for both queue and stack use
  */

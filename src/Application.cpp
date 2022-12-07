@@ -15,9 +15,30 @@ int main() {
 
 
 // Function Definitions
-/*
+
+/******************************
+ * Dynamic Array Functions
+ ******************************/
+APPLICATION_H::dynArray() {
+	size = ARRSIZE;
+};
+dynArray::insertValue(int x) {
+
+}
+dynArray::deleteValue(int x){
+
+}
+dynArray::expandArray() {
+
+}
+dynArray::compressArray() {
+
+}
+
+
+/******************************
  * Node Functions
- */
+ ******************************/
 APPLICATION_H::bNode(int x = 0)() {
 	value = x;
 };
@@ -41,9 +62,9 @@ int bNode::viewValue() {
 	return value;
 }
 
-/*
+/******************************
  * Stack Functions
- */
+ ******************************/
 APPLICATION_H::bStack() {
 	head = void;
 };
@@ -78,9 +99,9 @@ bool bStack::push(int x) {
 	return returnValue;
 }
 
-/*
+/******************************
  * Queue Functions
- */
+ ******************************/
 APPLICATION_H::bQueue() {
 	head = void;
 	tail = void;
@@ -120,9 +141,9 @@ bool bQueue::queue(int x) {
 
 
 
-/*
+/******************************
 *  Binary Search Tree Functions
-*/
+******************************/
 APPLICATION_H::bsLeaf(int x = 0) {
 	value = x;
 	left = void;
@@ -149,9 +170,9 @@ int bsTree::viewDepth() {
 }
 
 
-/*
+/******************************
 *  Red Black Search Tree Functions
-*/
+******************************/
 APPLICATION_H::rbTree() {
 	root = void;
 };
