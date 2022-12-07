@@ -2,9 +2,9 @@
 #define APPLICATION_H
 
 
-/* Dynamic Array class/method initalization
- *  
- */
+/*******************************
+ * Dynamic Array class/method initalization, unsorted array
+ *******************************/
 class dynArray {
 private:
 	int size;
@@ -16,9 +16,10 @@ public:
 };
 
 
-/* Queue and Stack class/method initialzing
+/*******************************
+ * Queue and Stack class/method initialzing
  * Node class contains data and methods for both queue and stack use
- */
+ *******************************/
 class bNode {
 private:
 	int value;
@@ -51,10 +52,11 @@ public:
 	int dequeue();
 };
 
-/* Tree class initalization
+/*******************************
+ * Tree class initalization
  * Currently contains leaf and basic tree functions. Will be adding
  * Search/insert Algorithms and creating seperate tree/leaf classes
-*/
+*******************************/
 
 class bsLeaf {
 private:

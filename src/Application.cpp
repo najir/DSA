@@ -17,21 +17,44 @@ int main() {
 // Function Definitions
 
 /******************************
- * Dynamic Array Functions
+ * Dynamic Array Functions, Unsorted Array
  ******************************/
 APPLICATION_H::dynArray() {
 	size = ARRSIZE;
+	int* myArray = new int[size];
 };
-dynArray::insertValue(int x) {
+bool dynArray::insertValue(int x) {
+	int loopValue;
+	int iter, returnValue = 0;
+	while (!loopValue || iter >= size) {
+		iter += 1;
+		loopValue = myArray[iter-1];
+	}
+	if !(iter - 1 >= size) {
+		myArray[iter - 1] = x;
+		returnValue = 1
+	}
+	return returnValue;
 
 }
-dynArray::deleteValue(int x){
+bool dynArray::deleteValue(int x){
+	int loopValue = 0;
+	int iter, returnValue = 0;
+	while (loopValue == x || iter >= size) {
+		iter += 1;
+		loopValue = myArray[iter - 1];
+	}
+	if (loopValue == x) {
+		myArray[iter - 1] = 0;
+		returnValue = 1
+	}
+	return returnValue;
 
 }
-dynArray::expandArray() {
+bool dynArray::expandArray() {
 
 }
-dynArray::compressArray() {
+bool dynArray::compressArray() {
 
 }
 
