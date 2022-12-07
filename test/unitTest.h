@@ -13,4 +13,16 @@ int sTest2(int x);
 int sTest3(int x);
 int sTest4(int x);
 
+//BST Unit Test Functions
+int bsTest1(int x);
+int bsTest2(int x);
+int bsTest3(int x);
+int bsTest4(int x);
+
+//RB Unit Test Functions
+int rbTest1(int x);
+int rbTest2(int x);
+int rbTest3(int x);
+int rbTest4(int x);
+
 #endif

@@ -48,8 +48,8 @@ private:
 	bsLeaf* right;
 public:
 	int viewValue();
-	bool setLeft();
-	bool setRight();
+	void setLeft(bsLeaf* refLeaf);
+	void setRight(bsLeaf* refLeaf);
 };
 
 class bsTree {
@@ -68,8 +68,8 @@ private:
 	int color;         // Red = 0 Black = 1
 public:
 	int viewvalue();
-	bool setLeft();
-	bool setRight();
+	bool setLeft(rbLeaf* refLeaf);
+	bool setRight(rbLeaf* refLeaf);
 	bool swapColor();  // Bool will return 0 for red swap and 1 for black swap
 };
 
