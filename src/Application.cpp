@@ -58,7 +58,6 @@ bool dynArray::deleteValue(int x){
 bool dynArray::expandArray() {
 	int returnValue = 0;
 	int arraySize = sizeof(myArray)*2;
-
 	int* tempArray = new int[arraySize];
 
 	for (int i = 0; i < iter - 1; i++) {
@@ -72,11 +71,17 @@ bool dynArray::expandArray() {
 
 bool dynArray::compressArray() {
 	int returnValue = 0;
+	int arraySize = sizeof(myArray) / 2;
+	int* tempArray = new int[arraySize];
 
-
-
+	for (int i = 0; i < arraySize - 1; i++) {
+		tempArray[i] = myArray[i];
+	}
+	delete[] myArray;
+	myArray = tempArray;
+	
 	return returnValue;
-}
+}	
 
 
 /******************************
