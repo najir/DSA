@@ -211,11 +211,11 @@ int bsLeaf::viewValue() {
 	return value;
 }
 
-bsLeaf bsLeaf::viewLeft(bsLeaf* parent) {
-	return parennt.left;
+bsLeaf bsLeaf::viewLeft() {
+	return right;
 }
-bsLeaf bsLeaf::viewRight(bsLeaf* parent) {
-	return parennt.right;
+bsLeaf bsLeaf::viewRight() {
+	return left;
 }
 
 void bsLeaf::setLeft(bsLeaf* refLeaf) {
@@ -250,12 +250,29 @@ bool bsTree::insert(int x) {
 		root = bsLeaf(int x);
 		returnValue = 1;
 	}
-
 	return returnValue;
 }
 
-int bsTree::search(int x) {
-
+bsLeaf* bsTree::search(int x) {
+	int returnValue = nullptr;
+	bsLeaf* nodeRef = root;
+	int valueRef = 0;
+	if (root) {
+		while (nodeRef) {
+			valueRef = nodeRef->viewValue;
+			if (x == valueRef) {
+				returnValue = nodeRef;
+				nodeRef = nullptr;
+			}
+			else if (x < valueRef) {
+				nodeRef = nodeRef->viewLeft;
+			}
+			else {
+				nodeRef = nodeRef->viewRight;
+			}
+		}
+	}
+	return returnValue;
 }
 
 int bsTree::viewDepth() {

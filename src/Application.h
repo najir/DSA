@@ -68,8 +68,8 @@ public:
 	int viewValue();
 	void setLeft(bsLeaf* refLeaf);
 	void setRight(bsLeaf* refLeaf);
-	bsLeaf setLeft(bsLeaf* parent);
-	bsLeaf setRight(bsLeaf* parent);
+	bsLeaf viewLeft();
+	bsLeaf viewRight();
 };
 
 class bsTree {
