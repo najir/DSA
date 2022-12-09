@@ -211,6 +211,13 @@ int bsLeaf::viewValue() {
 	return value;
 }
 
+bsLeaf bsLeaf::viewLeft(bsLeaf* parent) {
+	return parennt.left;
+}
+bsLeaf bsLeaf::viewRight(bsLeaf* parent) {
+	return parennt.right;
+}
+
 void bsLeaf::setLeft(bsLeaf* refLeaf) {
 	left = refLeaf;
 }
@@ -223,7 +230,31 @@ APPLICATION_H::bsTree() {
 	root = nullptr;
 };
 
-bool bsTree::insertLeaf(int x) {
+bool bsTree::insert(int x) {
+	bsLeaf* child = nullptr;
+	returnValue = 0;
+
+	if (root) {
+		child = root;
+		while (child) {
+			if (x > child->viewValue) {
+				child = child.viewLeft;
+			}
+			else {
+				child = child.viewRight
+			}
+		}
+		child = bsLeaf(int x);
+	}
+	else {
+		root = bsLeaf(int x);
+		returnValue = 1;
+	}
+
+	return returnValue;
+}
+
+int bsTree::search(int x) {
 
 }
 
