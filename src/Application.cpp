@@ -207,6 +207,9 @@ APPLICATION_H::bsLeaf(int x = 0) {
 	right = nullptr;
 };
 
+void bsLeaf::setValue(int x) {
+	value = x;
+}
 int bsLeaf::viewValue() {
 	return value;
 }
@@ -230,7 +233,7 @@ APPLICATION_H::bsTree() {
 	root = nullptr;
 };
 
-bool bsTree::insert(int x) {
+bool bsTree::bsInsert(int x) {
 	bsLeaf* child = nullptr;
 	returnValue = 0;
 
@@ -253,16 +256,15 @@ bool bsTree::insert(int x) {
 	return returnValue;
 }
 
-bsLeaf* bsTree::search(int x) {
-	int returnValue = nullptr;
+bool bsTree::bsSearch(int x) {
+	int returnValue = 0;
 	bsLeaf* nodeRef = root;
 	int valueRef = 0;
 	if (root) {
-		while (nodeRef) {
+		while (!returnValue || nodeRef) {
 			valueRef = nodeRef->viewValue;
 			if (x == valueRef) {
-				returnValue = nodeRef;
-				nodeRef = nullptr;
+				returnValue = 1
 			}
 			else if (x < valueRef) {
 				nodeRef = nodeRef->viewLeft;
@@ -275,8 +277,45 @@ bsLeaf* bsTree::search(int x) {
 	return returnValue;
 }
 
-int bsTree::viewDepth() {
-
+bool bsTree::bsDelete(int x) {
+	int returnValue = 0;
+	bsLeaf* nodeRef = root;
+	bsLeaf* childRef = nullptr;
+	int valueRef = 0;
+	if (root) {
+		while (!returnValue || nodeRef) {
+			valueRef = nodeRef->viewValue;
+			if (x == valueRef) {
+				returnValue = 1
+			}
+			else if (x < valueRef) {
+				nodeRef = nodeRef->viewLeft;
+			}
+			else {
+				nodeRef = nodeRef->viewRight;
+			}
+		}
+	}
+	if (returnValue) {
+		if (nodeRef->viewRight()) {
+			childRef = nodeRef->viewRight();
+		}
+		else {
+			childRef = nodeRef->viewLeft();
+		}
+		while (childRef) {
+			nodeRef->setValue(childRef->viewValue());
+			nodeRef->setLeft(childRef->viewLeft());
+			nodeRef->setRight(childRef->viewRight());
+			if (nodeRef->viewRight()) {
+				childRef = nodeRef->viewRight();
+			}
+			else {
+				childRef = nullptr;
+			}
+		}
+	}
+	return returnValue;
 }
 
 

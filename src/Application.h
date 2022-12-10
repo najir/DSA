@@ -66,6 +66,7 @@ private:
 	bsLeaf* right;
 public:
 	int viewValue();
+	void setValue(int x);
 	void setLeft(bsLeaf* refLeaf);
 	void setRight(bsLeaf* refLeaf);
 	bsLeaf viewLeft();
@@ -76,9 +77,9 @@ class bsTree {
 private:
 	bsLeaf* root;
 public:
-	int viewDepth();
-	bool insert(int x);
-	int search(int x);
+	bool bsDelete(int x);
+	bool bsInsert(int x);
+	bool bsSearch(int x);
 };
 
 class rbLeaf {
