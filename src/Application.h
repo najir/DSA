@@ -79,7 +79,7 @@ private:
 public:
 	bool bsDelete(int x);
 	bool bsInsert(int x);
-	bool bsSearch(int x);
+	bsLeaf* bsSearch(int x);
 };
 
 class rbLeaf {
@@ -89,18 +89,23 @@ private:
 	rbLeaf* right;
 	int color;         // Red = 0 Black = 1
 public:
-	int viewvalue();
-	bool setLeft(rbLeaf* refLeaf);
-	bool setRight(rbLeaf* refLeaf);
-	bool setColor(bool x);  // Bool will return 0 for red swap and 1 for black swap
+	int setValue(int x);
+	void setLeft(rbLeaf* refLeaf);
+	void setRight(rbLeaf* refLeaf);
+	void setColor(bool x);  // Bool will return 0 for red swap and 1 for black swap
+	int viewColor();
+	int viewValue();
+	rbLeaf* viewLeft();
+	rbLeaf* viewRight();
 };
 
 class rbTree {
 private:
 	rbLeaf* root;
 public:
-	bool insertLeaf(int x);
-	int viewDepth();
+	bool rbInsert(int x);
+	rbLeaf* rbSearch(int x);
+	bool rbDelete(int x);
 
 };
 #endif

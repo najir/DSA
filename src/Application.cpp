@@ -260,7 +260,7 @@ bool bsTree::bsInsert(int x) {
 	return returnValue;
 }
 
-bool bsTree::bsSearch(int x) {
+bsLeaf* bsTree::bsSearch(int x) {
 	int returnValue = 0;
 	bsLeaf* nodeRef = root;
 	int valueRef = 0;
@@ -268,7 +268,7 @@ bool bsTree::bsSearch(int x) {
 		while (!returnValue || nodeRef) {
 			valueRef = nodeRef->viewValue;
 			if (x == valueRef) {
-				returnValue = 1
+				returnValue = nodeRef;
 			}
 			else if (x < valueRef) {
 				nodeRef = nodeRef->viewLeft;
@@ -286,20 +286,8 @@ bool bsTree::bsDelete(int x) {
 	bsLeaf* nodeRef = root;
 	bsLeaf* childRef = nullptr;
 	int valueRef = 0;
-	if (root) {
-		while (!returnValue || nodeRef) {
-			valueRef = nodeRef->viewValue;
-			if (x == valueRef) {
-				returnValue = 1
-			}
-			else if (x < valueRef) {
-				nodeRef = nodeRef->viewLeft;
-			}
-			else {
-				nodeRef = nodeRef->viewRight;
-			}
-		}
-	}
+	
+	returnValue = bsTree::bsSearch(x);
 	if (returnValue) {
 		if (nodeRef->viewRight()) {
 			childRef = nodeRef->viewRight();
@@ -331,6 +319,7 @@ APPLICATION_H::rbLeaf() {
 	left = nullptr;
 	right = nullptr;
 	color = 0;
+	value = 0;
 };
 
 void rbLeaf::setColor(bool x) {
@@ -345,6 +334,26 @@ void rbLeaf::setRight(rbLeaf* refLeaf) {
 	right = refLeaf;
 }
 
+void rbLeaf::setValue(int x) {
+	value = x;
+}
+
+int rbLeaf::viewColor() {
+	return color;
+}
+
+rbLeaf* rbLeaf::viewLeft() {
+	return left;
+}
+
+rbLeaf* rbLeaf::viewRight() {
+	return right;
+}
+
+int rbLeaf::viewValue() {
+	return value;
+}
+
 /******************************
 *  Red Black Search Tree Main Functions
 ******************************/
@@ -353,10 +362,14 @@ APPLICATION_H::rbTree() {
 	root = nullptr;
 };
 
-bool rbTree::insertLeaf(int x){
+rbLeaf* rbTree::rbSearch(int x){
 
 }
 
-int rbTree::viewDepth() {
+bool rbTree::rbInsert(int x) {
+
+}
+
+bool rbTree::rbDelete(int x) {
 
 }
