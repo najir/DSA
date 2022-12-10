@@ -92,7 +92,7 @@ public:
 	int viewvalue();
 	bool setLeft(rbLeaf* refLeaf);
 	bool setRight(rbLeaf* refLeaf);
-	bool swapColor();  // Bool will return 0 for red swap and 1 for black swap
+	bool setColor(bool x);  // Bool will return 0 for red swap and 1 for black swap
 };
 
 class rbTree {

@@ -199,7 +199,7 @@ bool bQueue::queue(int x) {
 
 
 /******************************
-*  Binary Search Tree Functions
+*  Binary Search Tree Leaf Functions
 ******************************/
 APPLICATION_H::bsLeaf(int x = 0) {
 	value = x;
@@ -228,6 +228,10 @@ void bsLeaf::setLeft(bsLeaf* refLeaf) {
 void bsLeaf::setRight(bsLeaf* refLeaf) {
 	right = refLeaf;
 }
+
+/******************************
+*  Binary Search Tree Main Functions
+******************************/
 
 APPLICATION_H::bsTree() {
 	root = nullptr;
@@ -320,7 +324,7 @@ bool bsTree::bsDelete(int x) {
 
 
 /******************************
-*  Red Black Search Tree Functions
+*  Red Black Search Tree Leaf Functions
 ******************************/
 // Leaf initial color is always red(0)
 APPLICATION_H::rbLeaf() {
@@ -328,6 +332,22 @@ APPLICATION_H::rbLeaf() {
 	right = nullptr;
 	color = 0;
 };
+
+void rbLeaf::setColor(bool x) {
+	color = x;
+}
+
+void rbLeaf::setLeft(rbLeaf* refLeaf) {
+	left = refLeaf;
+}
+
+void rbLeaf::setRight(rbLeaf* refLeaf) {
+	right = refLeaf;
+}
+
+/******************************
+*  Red Black Search Tree Main Functions
+******************************/
 
 APPLICATION_H::rbTree() {
 	root = nullptr;
