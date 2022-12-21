@@ -448,18 +448,20 @@ void rbTree::rbColorSwap(rbLeaf* refLeaf) {
 			// 4 cases of rotations, find out what direction the parent and child are in
 			if (parentRef == grandRef->viewLeft()) {
 				if (refLeaf == parentRef->viewLeft) {    // LL rotation
-
+					rightRotation(parentRef);
 				}
 				else {									 // LR rotation
-
+					leftRotation(refLeaf);
+					rightRotation(parentRef);
 				}
 			}
 			else {
 				if (refLeaf == parentRef->viewRight) {	 // RR rotations
-
+					leftRotation(parentRef);
 				}
 				else {					                 // RL rotations, parent right of gp, child left of parent
-
+					rightRotation(refLeaf);
+					leftRotation(parentRef);
 				}
 			}
 		}
