@@ -373,6 +373,35 @@ rbLeaf* rbTree::rbSearch(int x){
 	//replace this with parent tree object BST search that returns position pointer
 }
 
+void rbTree::rightRotation(rbLeaf* parentRef) {
+	rbLeaf* grandRef = parentRef->viewParent();
+	rbLeaf* uncleRef = grandRef->viewRight();
+	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
+	grandRef->setLeft(parentRef->viewLeft);
+	grandRef->setRight(tempLeaf);
+	grandRef->setValue(parentRef->viewValue());
+	grandRef->setColor(1);
+	tempLeaf->setParent(grandRef);
+	tempLeaf->setRight(uncleRef);
+	tempLeaf->setColor(0);
+	uncleRef->setParent(tempLeaf);
+}
+
+void rbTree::leftRotation(rbLeaf* refLeaf) {
+	rbLeaf* grandRef = parentRef->viewParent();
+	rbLeaf* uncleRef = grandRef->viewLeft();
+	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
+	grandRef->setLeft(parentRef->viewRight);
+	grandRef->setRight(tempLeaf);
+	grandRef->setValue(parentRef->viewValue());
+	grandRef->setColor(1);
+	tempLeaf->setParent(grandRef);
+	tempLeaf->setRight(uncleRef);
+	tempLeaf->setColor(0);
+	uncleRef->setParent(tempLeaf);
+}
+
+
 bool rbTree::rbInsert(int x) {
 	bool returnValue = 0;
 	//perform bst
