@@ -106,7 +106,7 @@ class rbTree {
 private:
 	rbLeaf* root;
 public:
-	bool rbInsert(int x);
+	void rbInsert(int x);
 	bool rbDelete(int x);
 	rbLeaf* rbSearch(int x);
 	void rbColorSwap(rbLeaf* refLeaf);

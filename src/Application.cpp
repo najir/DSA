@@ -370,7 +370,7 @@ APPLICATION_H::rbTree() {
 };
 
 rbLeaf* rbTree::rbSearch(int x){
-	//replace this with parent tree object BST search that returns position pointer
+	return returnValue;
 }
 
 void rbTree::rightRotation(rbLeaf* parentRef) {
@@ -402,28 +402,28 @@ void rbTree::leftRotation(rbLeaf* refLeaf) {
 }
 
 
-bool rbTree::rbInsert(int x) {
-	bool returnValue = 0;
-	//perform bst
-	rbLeaf* rbParent = rbSearch(x);
-	if (rbParent) {
-		rbLeaf* rbChild = rbLeaf(x);
-		rbChild->viewParent(rbParent);
-		if (rbParent->viewValue() <= x) {
-			rbParent->setRight(rbChild);
+void rbTree::rbInsert(int x) {
+	rbLeaf* tempLeaf = root;
+	rbLeaf* tempParent = nullptr;
+	int tempValue = 0;
+	while (tempLeaf) {
+		tempValue = tempLeaf->viewValue();
+		if (tempValue >= x) {
+			tempParent = tempLeaf;
+			tempLeaf = tempLeaf->viewLeft();
 		}
 		else {
-			rbParent->setLeft(rbChild);
+			tempParent = tempLeaf;
+			tempLeaf = tempLeaf->viewRight();
 		}
-		rbColorSwap(rbPosition);
-		returnValue = 1;
 	}
-	else {
-		root = rbLeaf(x);
-		root->setColor(1);
-		returnValue = 1;
+	if (!tempLeaf) {
+		tempLeaf = rbLeaf(x);
+		tempLeaf->setColor(0);
+		tempLeaf->setParent(tempParent);
+		if (!tempParent) { tempLeaf->setColor(1); }  // If no parent exists for the new node it is the root and needs to be set black
+		else { rbColorSwap(rbPosition); }            // If it is not the root then a colors need to be checked
 	}
-	return returnValue;
 }
 
 void rbTree::rbColorSwap(rbLeaf* refLeaf) {
