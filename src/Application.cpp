@@ -232,7 +232,6 @@ void bsLeaf::setRight(bsLeaf* refLeaf) {
 /******************************
 *  Binary Search Tree Main Functions
 ******************************/
-
 APPLICATION_H::bsTree() {
 	root = nullptr;
 };
@@ -318,6 +317,7 @@ bool bsTree::bsDelete(int x) {
 APPLICATION_H::rbLeaf() {
 	left = nullptr;
 	right = nullptr;
+	parent = nullptr;
 	color = 0;
 	value = 0;
 };
@@ -338,7 +338,11 @@ void rbLeaf::setValue(int x) {
 	value = x;
 }
 
-int rbLeaf::viewColor() {
+void rbLeaf::setParent(rbLeaf* refParent) {
+	parent = refParent;
+}
+
+bool rbLeaf::viewColor() {
 	return color;
 }
 
@@ -350,6 +354,10 @@ rbLeaf* rbLeaf::viewRight() {
 	return right;
 }
 
+rbLeaf* rbLeaf::viewParent() {
+	return parent;
+}
+
 int rbLeaf::viewValue() {
 	return value;
 }
@@ -357,17 +365,76 @@ int rbLeaf::viewValue() {
 /******************************
 *  Red Black Search Tree Main Functions
 ******************************/
-
 APPLICATION_H::rbTree() {
 	root = nullptr;
 };
 
 rbLeaf* rbTree::rbSearch(int x){
-
+	//replace this with parent tree object BST search that returns position pointer
 }
 
 bool rbTree::rbInsert(int x) {
+	bool returnValue = 0;
+	//perform bst
+	rbLeaf* rbParent = rbSearch(x);
+	if (rbParent) {
+		rbLeaf* rbChild = rbLeaf(x);
+		rbChild->viewParent(rbParent);
+		if (rbParent->viewValue() <= x) {
+			rbParent->setRight(rbChild);
+		}
+		else {
+			rbParent->setLeft(rbChild);
+		}
+		rbColorSwap(rbPosition);
+		returnValue = 1;
+	}
+	else {
+		root = rbLeaf(x);
+		root->setColor(1);
+		returnValue = 1;
+	}
+	return returnValue;
+}
 
+void rbTree::rbColorSwap(rbLeaf* refLeaf) {
+	rbLeaf* parentRef = refLeaf->viewParent();
+	rbLeaf* uncleRef = nullptr;
+	rbLeaf* grandRef = parentRef->viewParent();
+	if (parentRef->viewLeft() == refLeaf) { uncleRef = parentRef->viewRight(); }
+	else { uncleRef = parentRef->viewLeft(); }
+	if (parentRef->viewColor() == 0) {
+		if (!uncleRef) {
+			parentRef->setColor(1);
+			grandRef->setColor(0);
+			rbColorSwap(parentRef);
+		}
+		else if (uncleRef->viewColor() == 0) {
+			parentRef->setColor(1);
+			uncleRef->setColor(1);
+			grandRef->setColor(0);
+			rbColorSwap(parentRef);
+		}
+		else if (uncleRef->viewColor() == 1) {
+			// 4 cases of rotations, find out what direction the parent and child are in
+			if (parentRef == grandRef->viewLeft()) {
+				if (refLeaf == parentRef->viewLeft) {    // LL rotation
+
+				}
+				else {									 // LR rotation
+
+				}
+			}
+			else {
+				if (refLeaf == parentRef->viewRight) {	 // RR rotations
+
+				}
+				else {					                 // RL rotations, parent right of gp, child left of parent
+
+				}
+			}
+		}
+	}
 }
 
 bool rbTree::rbDelete(int x) {

@@ -87,16 +87,19 @@ private:
 	int value;
 	rbLeaf* left;
 	rbLeaf* right;
-	int color;         // Red = 0 Black = 1
+	rbLeaf* parent;
+	int color;                             // Red = 0 Black = 1
 public:
 	int setValue(int x);
 	void setLeft(rbLeaf* refLeaf);
 	void setRight(rbLeaf* refLeaf);
-	void setColor(bool x);  // Bool will return 0 for red swap and 1 for black swap
-	int viewColor();
+	void setColor(bool x);                 // 0 for red swap and 1 for black swap
+	void setParent(rbLeaf* rbParent);
+	bool viewColor();                      // Red = 0 Black = 1
 	int viewValue();
 	rbLeaf* viewLeft();
 	rbLeaf* viewRight();
+	rbLeaf* viewParent();
 };
 
 class rbTree {
@@ -104,8 +107,9 @@ private:
 	rbLeaf* root;
 public:
 	bool rbInsert(int x);
-	rbLeaf* rbSearch(int x);
 	bool rbDelete(int x);
+	rbLeaf* rbSearch(int x);
+	void rbColorSwap(rbLeaf* refLeaf);
 
 };
 #endif
