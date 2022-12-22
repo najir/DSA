@@ -1,6 +1,17 @@
 /* DSA, Data Structures and Algorithms
  * Isaac Perks
  * 12/5/22
+ * 
+ * Important Notes: If any written "tasks" or goals are still posted below, they are not finished but
+ * intend to be done at some point.
+ *
+ * I've avoided using parent classes for nodes and methods between each structure
+ * due to each type of structure have vastly different requirments, forcing me to create overrides anyways.
+ * This may be looked at again, and I may refactor this code with more class inheritence - 12/22/22
+ * 
+ * R/B tree rotations have showed me that some online resources may provide a lack of certain info,
+ * or ineffecient information. This is a reminder to myself to ask what the best practice is on some
+ * forum or with others - 12/22/22
  */
 
 #include "Application.h"
@@ -377,13 +388,16 @@ void rbTree::rightRotation(rbLeaf* parentRef) {
 	rbLeaf* grandRef = parentRef->viewParent();
 	rbLeaf* uncleRef = grandRef->viewRight();
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
+
 	grandRef->setLeft(parentRef->viewLeft);
 	grandRef->setRight(tempLeaf);
 	grandRef->setValue(parentRef->viewValue());
 	grandRef->setColor(1);
+
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
 	tempLeaf->setColor(0);
+
 	uncleRef->setParent(tempLeaf);
 }
 
@@ -391,17 +405,20 @@ void rbTree::leftRotation(rbLeaf* refLeaf) {
 	rbLeaf* grandRef = parentRef->viewParent();
 	rbLeaf* uncleRef = grandRef->viewLeft();
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
-	grandRef->setLeft(parentRef->viewRight);
-	grandRef->setRight(tempLeaf);
+
+	grandRef->setLeft(parentRef->viewRight);           // Replacing values in GP node, rather then switch parents
+	grandRef->setRight(tempLeaf);                      // This is a faster then checking GGP L/R child for GP
 	grandRef->setValue(parentRef->viewValue());
 	grandRef->setColor(1);
+
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
 	tempLeaf->setColor(0);
+
 	uncleRef->setParent(tempLeaf);
 }
 
-
+// Performs a BST search to find next empty position and enters new red node. Then calls helper function to swap colors and rotate
 void rbTree::rbInsert(int x) {
 	rbLeaf* tempLeaf = root;
 	rbLeaf* tempParent = nullptr;
@@ -417,7 +434,7 @@ void rbTree::rbInsert(int x) {
 			tempLeaf = tempLeaf->viewRight();
 		}
 	}
-	if (!tempLeaf) {
+	if (!tempLeaf) {                                 // if the node already exists the function simply does not add a new node
 		tempLeaf = rbLeaf(x);
 		tempLeaf->setColor(0);
 		tempLeaf->setParent(tempParent);
@@ -426,6 +443,7 @@ void rbTree::rbInsert(int x) {
 	}
 }
 
+// Helper function for inserts, determins what rotations need to be done and what color swaps are needed
 void rbTree::rbColorSwap(rbLeaf* refLeaf) {
 	rbLeaf* parentRef = refLeaf->viewParent();
 	rbLeaf* uncleRef = nullptr;
@@ -469,5 +487,6 @@ void rbTree::rbColorSwap(rbLeaf* refLeaf) {
 }
 
 bool rbTree::rbDelete(int x) {
+
 
 }
