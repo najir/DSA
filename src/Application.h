@@ -25,13 +25,17 @@ class bNode {
 private:
 	int value;
 	bNode* next;
-	bNode* previous;
 public:
 	bool setNext(bNode* refNode);
-	bool setPrevious(bNode* refNode);
 	int viewValue();
-	bNode viewNext();
-	bNode viewPrevious();
+	bNode* viewNext();
+};
+class qNode : public bNode {
+private:
+	qNode* previous;
+public:
+	bool setPrevious(qNode* refNode);
+	qNode* viewPrevious();
 };
 
 class bStack {
@@ -45,8 +49,8 @@ public:
 
 class bQueue {
 private:
-	bNode* head;
-	bNode* tail;
+	qNode* head;
+	qNode* tail;
 public:
 	int peek();
 	bool queue(int x);
@@ -56,21 +60,33 @@ public:
 /*******************************
  * Tree class initalization
  * Currently contains leaf and basic tree functions. Will be adding
+ * 
+ * Base tree class will provide traversals and search functions. 
+ * Individual tree classes will contain their insert/delete opersations
+ * 
  * Search/insert Algorithms and creating seperate tree/leaf classes
 *******************************/
 
-class bsLeaf {
+class baseTree {
+
+};
+
+class baseLeaf {
 private:
 	int value;
-	bsLeaf* left;
-	bsLeaf* right;
+	baseLeaf* left;
+	baseLeaf* right;
 public:
 	int viewValue();
 	void setValue(int x);
-	void setLeft(bsLeaf* refLeaf);
-	void setRight(bsLeaf* refLeaf);
-	bsLeaf viewLeft();
-	bsLeaf viewRight();
+	void setLeft(baseLeaf* refLeaf);
+	void setRight(baseLeaf* refLeaf);
+	baseLeaf* viewLeft();
+	baseLeaf* viewRight();
+};
+
+
+class bsLeaf : public baseLeaf {
 };
 
 class bsTree {
@@ -82,23 +98,14 @@ public:
 	bsLeaf* bsSearch(int x);
 };
 
-class rbLeaf {
+class rbLeaf : public baseLeaf {
 private:
-	int value;
-	rbLeaf* left;
-	rbLeaf* right;
 	rbLeaf* parent;
 	int color;                             // Red = 0 Black = 1
 public:
-	int setValue(int x);
-	void setLeft(rbLeaf* refLeaf);
-	void setRight(rbLeaf* refLeaf);
 	void setColor(bool x);                 // 0 for red swap and 1 for black swap
 	void setParent(rbLeaf* rbParent);
 	bool viewColor();                      // Red = 0 Black = 1
-	int viewValue();
-	rbLeaf* viewLeft();
-	rbLeaf* viewRight();
 	rbLeaf* viewParent();
 };
 
@@ -112,6 +119,7 @@ public:
 	void rbColorSwap(rbLeaf* refLeaf);
 	void rightRotation(rbLeaf* refLeaf);
 	void leftRotation(rbLeaf* refLeaf);
+	void rbDoubleBlack(rbLeaf* refLeaf);
 
 };
 #endif

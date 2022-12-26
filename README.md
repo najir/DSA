@@ -14,10 +14,6 @@ DSA(Data Structures & Algorithms) is a simple project created to serve as practi
 Important updates and notes will also be found here as neccessary:
 
 ## Data Structures
-- Stack and queue use the same Node object for implementation, normally the stack would not be a doubly linked list.
-- A majority of these structures will require algorithms to complete their inserts/retreivals. So 
-  they will be incomplete until those are finished as well.
-- Dynamic Array is an unsorted array with O(N) insert/delete operations and is implement as an integer array
 ______________________
 ### Stack
 Standard stack implementation with a single head node that reference the next node in the form of a linked list. 
@@ -31,7 +27,9 @@ and decrease in size as needed. Current implementation is simple int array. A po
 a special delete function for clearing individual pointers.
 ### Binary search tree
 Basic implementation of core functions and leaf node for a  binary search tree. Includes left/right access to leafs
-and currently incomplete insert/delete functions
+and currently incomplete insert/delete functions.
+12/26/22: Implementing Pre/In/Post, Level, zigzag, odd/even traversals before completing my r/b tree due to the
+use of traversals and BST deletion operations needed in rb deletions.
 ### Red/Black Tree
 Created tree and leaf class for a red/black sorting tree. Leaf contains left/right nodes along with a set color of 
 red(0) or black(1)
