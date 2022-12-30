@@ -30,6 +30,7 @@ public:
 	int viewValue();
 	bNode* viewNext();
 };
+
 class qNode : public bNode {
 private:
 	qNode* previous;
@@ -53,7 +54,7 @@ private:
 	qNode* tail;
 public:
 	int peek();
-	bool queue(int x);
+	bool queue(bNode* refNode);
 	int dequeue();
 };
 
@@ -62,15 +63,9 @@ public:
  * Currently contains leaf and basic tree functions. Will be adding
  * 
  * Base tree class will provide traversals and search functions. 
- * Individual tree classes will contain their insert/delete opersations
- * 
+ * Individual tree classes will contain their insert/delete operations
  * Search/insert Algorithms and creating seperate tree/leaf classes
 *******************************/
-
-class baseTree {
-
-};
-
 class baseLeaf {
 private:
 	int value;
@@ -85,8 +80,15 @@ public:
 	baseLeaf* viewRight();
 };
 
-
 class bsLeaf : public baseLeaf {
+};
+
+class bsNode : public bNode {
+private:
+	bsLeaf* node;
+public:
+	viewNode();
+	setNode(bsLeaf* nodeRef);
 };
 
 class bsTree {
@@ -96,6 +98,11 @@ public:
 	bool bsDelete(int x);
 	bool bsInsert(int x);
 	bsLeaf* bsSearch(int x);
+	void bsInorder(bsLeaf* leafRef, bStack* bstStack);
+	void bsPreorder(bsLeaf* leafRef, bStack* bstStack);
+	void bsPostorder(bsLeaf* leafRef, bStack* bstStack);
+	void bsLevel(bsLeaf* leafRef, bQueue* bstQueue);
+	void bsZigzag(bsLeaf* leafRef, bQueue* bstQueue);
 };
 
 class rbLeaf : public baseLeaf {
@@ -120,6 +127,5 @@ public:
 	void rightRotation(rbLeaf* refLeaf);
 	void leftRotation(rbLeaf* refLeaf);
 	void rbDoubleBlack(rbLeaf* refLeaf);
-
 };
 #endif

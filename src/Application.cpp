@@ -201,17 +201,17 @@ int bQueue::dequeue() {
 	return returnValue;
 }
 
-bool bQueue::queue(int x) {
+bool bQueue::queue(bNode* refNode) {
 	int returnValue = 0;
 	if (head) {
-		qNode* refNode = head;
-		head = qNode(x);
-		head->setPrevious = refNode;
-		refNode->setNext = head;
+		qNode* prevNode = head;
+		head = refNode;
+		head->setPrevious = prevNode;
+		prevNode->setNext = head;
 		returnValue = 1;
 	}
 	else {
-		head = qNode(x);
+		head = refNode;
 		returnValue = 1;
 	}
 	return returnValue;
@@ -332,11 +332,52 @@ bool bsTree::bsDelete(int x) {
 	return returnValue;
 }
 
+void bsInorder(bsLeaf* leafRef, bStack* bstStack) {
+	if (node) {
+		bsInorder(leafRef->viewLeft, bstStack);
+		bstStack->push(leafRef->viewValue);
+		bsInorder(leafRef->viewRight, bstStack);
+	}
+
+}
+
+void bsPreorder(bsLeaf* leafRef, bStack* bstStack) {
+	if (node) {
+		bstStack->push(leafRef->viewValue);
+		bsPreorder(leafRef->viewLeft, bstStack);
+		bsPreorder(leafRef->viewRight, bstStack);
+	}
+
+}
+
+void bsPostorder(bsLeaf* leafRef, bStack* bstStack) {
+	if (leafRef) {
+		bsPostorder(leafRef->viewLeft, bstStack);
+		bsPostorder(leafRef->viewRight, bstStack);
+		bstStack->push(leafRef->viewValue);
+	}
+}
+
+void bsLevel(bsLeaf* leafRef, bQueue* bstQueue) {
+	if (leafRef && bstQueue) {
+		bQueue* tempQueue = bQueue();
+		bQueue->queue()
+
+	}
+}
+
+void bsZigzag(bsLeaf* leafRef, bQueue* bstQueue) {
+	if (leafRef) {
+
+	}
+}
+
+
 
 /******************************
 *  Red Black Search Tree Leaf Functions
+*  Red = 0, Black = 1
 ******************************/
-// Leaf initial color is always red(0)
 APPLICATION_H::rbLeaf(int x = 0) {
 	left = nullptr;
 	right = nullptr;
@@ -364,6 +405,7 @@ rbLeaf* rbLeaf::viewParent() {
 
 /******************************
 *  Red Black Search Tree Main Functions
+*  Red = 0 Black = 1
 ******************************/
 APPLICATION_H::rbTree() {
 	root = nullptr;
