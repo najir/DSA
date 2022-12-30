@@ -29,20 +29,20 @@ int main() {
 /******************************
  * Dynamic Array Functions, Unsorted Array
  ******************************/
-APPLICATION_H::dynArray() {
+APPLICATION_H::dynArray::dynArray() {
 	size = ARRSIZE;
 	myArray = new int[size];
 };
 
 bool dynArray::insertValue(int x) {
-	int loobValue = 0, iter = 0, returnValue = 0;
+	int loopValue = 0, iter = 0, returnValue = 0;
 	while (!loopValue || iter >= size) {     // If loop value is ever 0 or empty, and/or if we iterate beyond the size of the array
 		iter += 1;                           // it will end the loop, check the location and insert the data if it's within bounds
-		loopValue = myArray[iter-1];
+		loopValue = myArray[iter - 1];
 	}
 	if !(iter - 1 >= size) {
 		myArray[iter - 1] = x;
-		returnValue = 1
+		returnValue = 1;
 	}
 	return returnValue;
 
@@ -50,14 +50,14 @@ bool dynArray::insertValue(int x) {
 
 bool dynArray::deleteValue(int x){
 	int loopValue = 0;
-	int iter, returnValue = 0;
+	int iter = 0, returnValue = 0;
 	while (loopValue == x || iter >= size) {  // loopValue is the data contained at iter location of the array, if we go out
 		iter += 1;                            // of bounds, or find the exact location, the loop ends and we replace the data with 0
 		loopValue = myArray[iter - 1];
 	}
 	if (loopValue == x) {
 		myArray[iter - 1] = 0;
-		returnValue = 1
+		returnValue = 1;
 	}
 	return returnValue;
 
@@ -95,10 +95,10 @@ bool dynArray::compressArray() {
 /******************************
  * Node Functions
  ******************************/
-APPLICATION_H::bNode(int x = 0)() {
+APPLICATION_H::bNode::bNode(int x = 0) {
 	value = x;
 };
-APPLICATION_H::qNode(int x = 0)() {
+APPLICATION_H::qNode::qNode(int x = 0)() {
 	value = x;
 };
 
@@ -136,7 +136,7 @@ qNode* qNode::viewPrevious() {
 /******************************
  * Stack Functions
  ******************************/
-APPLICATION_H::bStack() {
+APPLICATION_H::bStack::bStack() {
 	head = void;
 };
 
@@ -177,7 +177,7 @@ bool bStack::push(int x) {
 /******************************
  * Queue Functions
  ******************************/
-APPLICATION_H::bQueue() {
+APPLICATION_H::bQueue::bQueue() {
 	head = void;
 	tail = void;
 };
@@ -196,23 +196,25 @@ int bQueue::dequeue() {
 		qNode* prevNode = head;
 		head = prevNode->viewPrevious;
 		head->setNext = void;
-		returnValue = 1
+		returnValue = 1;
 	}
 	return returnValue;
 }
 
 bool bQueue::queue(bNode* refNode) {
 	int returnValue = 0;
-	if (head) {
-		qNode* prevNode = head;
-		head = refNode;
-		head->setPrevious = prevNode;
-		prevNode->setNext = head;
-		returnValue = 1;
-	}
-	else {
-		head = refNode;
-		returnValue = 1;
+	if (refNode) {
+		if (head) {
+			qNode* prevNode = head;
+			head = refNode;
+			head->setPrevious = prevNode;
+			prevNode->setNext = head;
+			returnValue = 1;
+		}
+		else {
+			head = refNode;
+			returnValue = 1;
+		}
 	}
 	return returnValue;
 }
@@ -221,6 +223,17 @@ bool bQueue::queue(bNode* refNode) {
 /******************************
 *  Base Tree/Leaf Functions
 ******************************/
+APPLICATION_H::baseLeaf::baseLeaf(int x = 0) {
+	value = x;
+	left = nullptr;
+	right = nullptr;
+};
+
+APPLICATION_H::searchNode::searchNode(baseLeaf* leafRef) {
+	node = leafRef;
+	value = leafRef->viewValue;
+};
+
 void baseLeaf::setValue(int x) {
 	value = x;
 }
@@ -249,20 +262,13 @@ void baseLeaf::setRight(bsLeaf* refLeaf) {
 /******************************
 *  Binary Search Tree Main Functions
 ******************************/
-APPLICATION_H::bsLeaf(int x = 0) {
-	value = x;
-	left = nullptr;
-	right = nullptr;
-};
-
-APPLICATION_H::bsTree() {
+APPLICATION_H::bsTree::bsTree() {
 	root = nullptr;
 };
 
 bool bsTree::bsInsert(int x) {
-	bsLeaf* child = nullptr;
+	baseLeaf* child = nullptr;
 	returnValue = 0;
-
 	if (root) {
 		child = root;
 		while (child) {
@@ -273,18 +279,18 @@ bool bsTree::bsInsert(int x) {
 				child = child.viewRight
 			}
 		}
-		child = bsLeaf(int x);
+		child = baseLeaf(int x);
 	}
 	else {
-		root = bsLeaf(int x);
+		root = baseLeaf(int x);
 		returnValue = 1;
 	}
 	return returnValue;
 }
 
-bsLeaf* bsTree::bsSearch(int x) {
+baseLeaf* bsTree::bsSearch(int x) {
 	int returnValue = 0;
-	bsLeaf* nodeRef = root;
+	baseLeaf* nodeRef = root;
 	int valueRef = 0;
 	if (root) {
 		while (!returnValue || nodeRef) {
@@ -305,8 +311,8 @@ bsLeaf* bsTree::bsSearch(int x) {
 
 bool bsTree::bsDelete(int x) {
 	int returnValue = 0;
-	bsLeaf* nodeRef = root;
-	bsLeaf* childRef = nullptr;
+	baseLeaf* nodeRef = root;
+	baseLeaf* childRef = nullptr;
 	int valueRef = 0;
 	
 	returnValue = bsTree::bsSearch(x);
@@ -332,7 +338,7 @@ bool bsTree::bsDelete(int x) {
 	return returnValue;
 }
 
-void bsInorder(bsLeaf* leafRef, bStack* bstStack) {
+void bsInorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (node) {
 		bsInorder(leafRef->viewLeft, bstStack);
 		bstStack->push(leafRef->viewValue);
@@ -341,7 +347,7 @@ void bsInorder(bsLeaf* leafRef, bStack* bstStack) {
 
 }
 
-void bsPreorder(bsLeaf* leafRef, bStack* bstStack) {
+void bsPreorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (node) {
 		bstStack->push(leafRef->viewValue);
 		bsPreorder(leafRef->viewLeft, bstStack);
@@ -350,7 +356,7 @@ void bsPreorder(bsLeaf* leafRef, bStack* bstStack) {
 
 }
 
-void bsPostorder(bsLeaf* leafRef, bStack* bstStack) {
+void bsPostorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (leafRef) {
 		bsPostorder(leafRef->viewLeft, bstStack);
 		bsPostorder(leafRef->viewRight, bstStack);
@@ -358,15 +364,21 @@ void bsPostorder(bsLeaf* leafRef, bStack* bstStack) {
 	}
 }
 
-void bsLevel(bsLeaf* leafRef, bQueue* bstQueue) {
+void bsLevel(baseLeaf* leafRef, bQueue* bstQueue) {
 	if (leafRef && bstQueue) {
+		searchNode* rootNode = searchNode(leafRef);
 		bQueue* tempQueue = bQueue();
-		bQueue->queue()
-
+		tempQueue->queue(rootNode);
+		while (tempQueue->peek) {
+			baseLeaf* oldNode = tempQueue->dequeue();
+			tempQueue->queue(oldNode->viewLeft);      // If child does not exist, the queue function will not input anything
+			tempQueue->queue(oldNode->viewRight);
+			bstQueue->queue(oldNode);                 // Adding nodes from dequeue to a new queue for output.
+		}
 	}
 }
 
-void bsZigzag(bsLeaf* leafRef, bQueue* bstQueue) {
+void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {
 	if (leafRef) {
 
 	}
@@ -378,7 +390,7 @@ void bsZigzag(bsLeaf* leafRef, bQueue* bstQueue) {
 *  Red Black Search Tree Leaf Functions
 *  Red = 0, Black = 1
 ******************************/
-APPLICATION_H::rbLeaf(int x = 0) {
+APPLICATION_H::rbLeaf::rbLeaf(int x = 0) {
 	left = nullptr;
 	right = nullptr;
 	parent = nullptr;
@@ -407,7 +419,7 @@ rbLeaf* rbLeaf::viewParent() {
 *  Red Black Search Tree Main Functions
 *  Red = 0 Black = 1
 ******************************/
-APPLICATION_H::rbTree() {
+APPLICATION_H::rbTree::rbTree	() {
 	root = nullptr;
 };
 

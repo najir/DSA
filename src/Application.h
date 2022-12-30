@@ -80,29 +80,26 @@ public:
 	baseLeaf* viewRight();
 };
 
-class bsLeaf : public baseLeaf {
-};
-
-class bsNode : public bNode {
+class searchNode : public bNode {
 private:
-	bsLeaf* node;
+	baseLeaf* node;
 public:
 	viewNode();
-	setNode(bsLeaf* nodeRef);
+	setNode(baseLeaf* nodeRef);
 };
 
 class bsTree {
 private:
-	bsLeaf* root;
+	baseLeaf* root;
 public:
 	bool bsDelete(int x);
 	bool bsInsert(int x);
 	bsLeaf* bsSearch(int x);
-	void bsInorder(bsLeaf* leafRef, bStack* bstStack);
-	void bsPreorder(bsLeaf* leafRef, bStack* bstStack);
-	void bsPostorder(bsLeaf* leafRef, bStack* bstStack);
-	void bsLevel(bsLeaf* leafRef, bQueue* bstQueue);
-	void bsZigzag(bsLeaf* leafRef, bQueue* bstQueue);
+	void bsInorder(baseLeaf* leafRef, bStack* bstStack);
+	void bsPreorder(baseLeaf* leafRef, bStack* bstStack);
+	void bsPostorder(baseLeaf* leafRef, bStack* bstStack);
+	void bsLevel(baseLeaf* leafRef, bQueue* bstQueue);
+	void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue);
 };
 
 class rbLeaf : public baseLeaf {
