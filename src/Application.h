@@ -121,8 +121,8 @@ public:
 	bool rbDelete(int x);
 	rbLeaf* rbSearch(int x);
 	void rbColorSwap(rbLeaf* refLeaf);
-	void rightRotation(rbLeaf* refLeaf);
-	void leftRotation(rbLeaf* refLeaf);
+	void rightRotation(rbLeaf* parentRef);
+	void leftRotation(rbLeaf* parentRef);
 	void rbDoubleBlack(rbLeaf* refLeaf);
 };
 #endif

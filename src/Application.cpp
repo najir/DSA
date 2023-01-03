@@ -396,7 +396,6 @@ void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {  // Going to come back to t
 }
 
 
-
 /******************************
 *  Red Black Search Tree Leaf Functions
 *  Red = 0, Black = 1
@@ -450,12 +449,13 @@ void rbTree::rightRotation(rbLeaf* parentRef) {
 
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
+	tempLeaf->setLeft(parentRef->viewRight());
 	tempLeaf->setColor(0);
 
 	uncleRef->setParent(tempLeaf);
 }
 
-void rbTree::leftRotation(rbLeaf* refLeaf) {
+void rbTree::leftRotation(rbLeaf* parentRef) {
 	rbLeaf* grandRef = parentRef->viewParent();
 	rbLeaf* uncleRef = grandRef->viewLeft();
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
@@ -467,6 +467,7 @@ void rbTree::leftRotation(rbLeaf* refLeaf) {
 
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
+	tempLeaf->setLeft(parentRef->viewLeft());
 	tempLeaf->setColor(0);
 
 	uncleRef->setParent(tempLeaf);
