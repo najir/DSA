@@ -266,9 +266,8 @@ APPLICATION_H::bsTree::bsTree() {
 	root = nullptr;
 };
 
-bool bsTree::bsInsert(int x) {
+void bsTree::bsInsert(int x) {
 	baseLeaf* child = nullptr;
-	returnValue = 0;
 	if (root) {
 		child = root;
 		while (child) {
@@ -283,9 +282,7 @@ bool bsTree::bsInsert(int x) {
 	}
 	else {
 		root = baseLeaf(int x);
-		returnValue = 1;
 	}
-	return returnValue;
 }
 
 baseLeaf* bsTree::bsSearch(int x) {
@@ -309,7 +306,51 @@ baseLeaf* bsTree::bsSearch(int x) {
 	return returnValue;
 }
 
-bool bsTree::bsDelete(int x) {
+void bsTree::bsDelete(int x) {
+	baseLeaf* nodeRef = bsTree::bsSearch(x);
+	baseLeaf* leftChild = nodeRef->viewLeft;
+	baseLeaf* rightChild = nodeRef->viewRight;
+	if (nodeRef) {
+		if (leftChild) {       
+			if (rightChild) {					// 2 Children in deleted node
+				baseLeaf* tempNode = nullptr;
+				while (nodeRef) {
+					tempNode = nodeRef->viewRight;
+					if (tempNode) {
+						while (tempNode) {
+							if (tempNode->viewLeft) { tempNode = tempNode->viewLeft }
+							else {
+								nodeRef->setValue(tempNode->viewValue);
+								nodeRef = tempNode;
+								tempNode = nullptr;
+							}
+						}
+					}
+					else{ delete nodeRef }
+				}
+			}
+			else {								// 1 Child in deleted node and it's left
+				// Replace with Child
+				nodeRef->setValue(leftChild->setValue);
+				nodeRef->setLeft(nullptr);
+				delete leftChild;
+			}
+		}
+		else if(rightChild){					// 1 Child in deleted node and it's right
+			// Replace with Child
+			nodeRef->setValue(rightChild->setValue);
+			nodeRef->setRight(nullptr);
+			delete rightChild;
+		}
+		else {									// 0 Children in deleted node
+			// Delete node
+			delete nodeRef;
+		}
+	}
+
+
+
+
 	int returnValue = 0;
 	baseLeaf* nodeRef = root;
 	baseLeaf* childRef = nullptr;
@@ -317,25 +358,28 @@ bool bsTree::bsDelete(int x) {
 	
 	returnValue = bsTree::bsSearch(x);
 	if (returnValue) {
-		if (nodeRef->viewRight()) {
-			childRef = nodeRef->viewRight();
-		}
-		else {
-			childRef = nodeRef->viewLeft();
-		}
-		while (childRef) {
-			nodeRef->setValue(childRef->viewValue());
-			nodeRef->setLeft(childRef->viewLeft());
-			nodeRef->setRight(childRef->viewRight());
-			if (nodeRef->viewRight()) {
-				childRef = nodeRef->viewRight();
+		if (nodeRef->viewRight) {
+			if (nodeRef->viewLeft) {
+
 			}
 			else {
-				childRef = nullptr;
+				childRef = nodeRef->viewRight;
+				nodeRef->setValue(childRef->viewValue);
+				delete childRef;
 			}
 		}
+		else if (nodeRef->viewLeft()) {
+			childRef = nodeRef->viewLeft();
+			nodeRef->setValue(childRef->viewValue);
+			delete childRef;
+		}
+		else { delete nodeRef; }
 	}
 	return returnValue;
+}
+
+baseLeaf* bsInorderSuccessor(baseLeaf* refLeaf) {
+
 }
 
 void bsInorder(baseLeaf* leafRef, bStack* bstStack) {
@@ -378,7 +422,7 @@ void bsLevel(baseLeaf* leafRef, bQueue* bstQueue) {
 	}
 }
 
-void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {
+void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {  // Going to come back to this when I complete r/b Trees
 	if (leafRef) {
 
 	}
