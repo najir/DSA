@@ -12,6 +12,8 @@ DSA(Data Structures & Algorithms) is a simple project created to serve as practi
 	as they are completed.
 	<br />
 Important updates and notes will also be found here as neccessary:
+- I wanted to note that I've attempted to write my structures and algorithms iteratively where possible with the goal of improved
+readability and my own personal preference. I may write them again recursively for practice.
 
 ## Data Structures
 ______________________
