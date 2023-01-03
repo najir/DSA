@@ -311,7 +311,7 @@ void bsTree::bsDelete(int x) {
 	baseLeaf* leftChild = nodeRef->viewLeft;
 	baseLeaf* rightChild = nodeRef->viewRight;
 	if (nodeRef) {
-		if (leftChild) {       
+		if (leftChild) {
 			if (rightChild) {					// 2 Children in deleted node
 				baseLeaf* tempNode = nullptr;
 				while (nodeRef) {
@@ -326,7 +326,7 @@ void bsTree::bsDelete(int x) {
 							}
 						}
 					}
-					else{ delete nodeRef }
+					else { delete nodeRef }
 				}
 			}
 			else {								// 1 Child in deleted node and it's left
@@ -336,7 +336,7 @@ void bsTree::bsDelete(int x) {
 				delete leftChild;
 			}
 		}
-		else if(rightChild){					// 1 Child in deleted node and it's right
+		else if (rightChild) {					// 1 Child in deleted node and it's right
 			// Replace with Child
 			nodeRef->setValue(rightChild->setValue);
 			nodeRef->setRight(nullptr);
@@ -347,39 +347,6 @@ void bsTree::bsDelete(int x) {
 			delete nodeRef;
 		}
 	}
-
-
-
-
-	int returnValue = 0;
-	baseLeaf* nodeRef = root;
-	baseLeaf* childRef = nullptr;
-	int valueRef = 0;
-	
-	returnValue = bsTree::bsSearch(x);
-	if (returnValue) {
-		if (nodeRef->viewRight) {
-			if (nodeRef->viewLeft) {
-
-			}
-			else {
-				childRef = nodeRef->viewRight;
-				nodeRef->setValue(childRef->viewValue);
-				delete childRef;
-			}
-		}
-		else if (nodeRef->viewLeft()) {
-			childRef = nodeRef->viewLeft();
-			nodeRef->setValue(childRef->viewValue);
-			delete childRef;
-		}
-		else { delete nodeRef; }
-	}
-	return returnValue;
-}
-
-baseLeaf* bsInorderSuccessor(baseLeaf* refLeaf) {
-
 }
 
 void bsInorder(baseLeaf* leafRef, bStack* bstStack) {
