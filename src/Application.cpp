@@ -306,13 +306,14 @@ baseLeaf* bsTree::bsSearch(int x) {
 	return returnValue;
 }
 
+
 void bsTree::bsDelete(int x) {
 	baseLeaf* nodeRef = bsTree::bsSearch(x);
 	baseLeaf* leftChild = nodeRef->viewLeft;
 	baseLeaf* rightChild = nodeRef->viewRight;
 	if (nodeRef) {
 		if (leftChild) {
-			if (rightChild) {					// 2 Children in deleted node
+			if (rightChild) {					// 2 Children in deleted node, successor
 				baseLeaf* tempNode = nullptr;
 				while (nodeRef) {
 					tempNode = nodeRef->viewRight;
@@ -326,7 +327,7 @@ void bsTree::bsDelete(int x) {
 							}
 						}
 					}
-					else { delete nodeRef }
+					else { bsTree::bsDelete(nodeRef->viewValue); }
 				}
 			}
 			else {								// 1 Child in deleted node and it's left
@@ -434,6 +435,23 @@ APPLICATION_H::rbTree::rbTree	() {
 };
 
 rbLeaf* rbTree::rbSearch(int x){
+	int returnValue = 0;
+	rbLeaf* nodeRef = root;
+	int valueRef = 0;
+	if (root) {
+		while (!returnValue || nodeRef) {
+			valueRef = nodeRef->viewValue;
+			if (x == valueRef) {
+				returnValue = nodeRef;
+			}
+			else if (x < valueRef) {
+				nodeRef = nodeRef->viewLeft;
+			}
+			else {
+				nodeRef = nodeRef->viewRight;
+			}
+		}
+	}
 	return returnValue;
 }
 
@@ -442,15 +460,15 @@ void rbTree::rightRotation(rbLeaf* parentRef) {
 	rbLeaf* uncleRef = grandRef->viewRight();
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
 
+	tempLeaf->setColor(grandRef->viewColor);
 	grandRef->setLeft(parentRef->viewLeft);
 	grandRef->setRight(tempLeaf);
 	grandRef->setValue(parentRef->viewValue());
-	grandRef->setColor(1);
+	grandRef->setColor(parentRef->viewColor);
 
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
 	tempLeaf->setLeft(parentRef->viewRight());
-	tempLeaf->setColor(0);
 
 	uncleRef->setParent(tempLeaf);
 }
@@ -460,15 +478,15 @@ void rbTree::leftRotation(rbLeaf* parentRef) {
 	rbLeaf* uncleRef = grandRef->viewLeft();
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
 
+	tempLeaf->setColor(grandRef->viewColor);
 	grandRef->setLeft(parentRef->viewRight);           // Replacing values in GP node, rather then switch parents
 	grandRef->setRight(tempLeaf);                      // This is a faster then checking GGP L/R child for GP
 	grandRef->setValue(parentRef->viewValue());
-	grandRef->setColor(1);
+	grandRef->setColor(parentRef->viewColor);
 
 	tempLeaf->setParent(grandRef);
 	tempLeaf->setRight(uncleRef);
 	tempLeaf->setLeft(parentRef->viewLeft());
-	tempLeaf->setColor(0);
 
 	uncleRef->setParent(tempLeaf);
 }
@@ -543,7 +561,48 @@ void rbTree::rbColorSwap(rbLeaf* refLeaf) {
 
 void rbTree::rbDelete(int x) {
 	//BST DELETE
-
+	rbLeaf* nodeRef = bsTree::bsSearch(x);
+	rbLeaf* leftChild = nodeRef->viewLeft;
+	rbLeaf* rightChild = nodeRef->viewRight;
+	rbLeaf* deletedNode = nullptr;
+	rbLeaf* nodeSibling = nullptr;
+	if (nodeRef) {
+		if (leftChild) {
+			if (rightChild) {					// 2 Children in deleted node
+				rbLeaf* tempNode = nullptr;
+				while (nodeRef) {
+					tempNode = nodeRef->viewRight;
+					if (tempNode) {
+						while (tempNode) {
+							if (tempNode->viewLeft) { tempNode = tempNode->viewLeft }
+							else {
+								nodeRef->setValue(tempNode->viewValue);
+								nodeRef = tempNode;
+								tempNode = nullptr;
+							}
+						}
+					}
+					else { rbTree::rbDelete(nodeRef->viewValue) }		// Final node to be deleted, use this for rb deletion reference
+				}
+			}
+			else {								// 1 Child in deleted node and it's left
+				// Replace with Child
+				nodeRef->setValue(leftChild->setValue);
+				nodeRef->setLeft(nullptr);
+				delete leftChild;
+			}
+		}
+		else if (rightChild) {					// 1 Child in deleted node and it's right
+			// Replace with Child
+			nodeRef->setValue(rightChild->setValue);
+			nodeRef->setRight(nullptr);
+			delete rightChild;
+		}
+		else {									// 0 Children in deleted node
+			// Delete node
+			delete nodeRef;
+		}
+	}
 
 	//RECOLOR
 
@@ -553,6 +612,7 @@ void rbTree::rbDelete(int x) {
 
 }
 
+//recursive function that needs to be called again for certain cases
 void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
 	//Check root case
 
