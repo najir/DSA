@@ -118,9 +118,10 @@ private:
 	rbLeaf* root;
 public:
 	void rbInsert(int x);
-	bool rbDelete(int x);
+	void rbDelete(int x);
 	rbLeaf* rbSearch(int x);
-	void rbColorSwap(rbLeaf* refLeaf);
+	bool rbColorCheck(rbLeaf* refNode);
+	void rbInsertHelper(rbLeaf* refLeaf);
 	void rightRotation(rbLeaf* parentRef);
 	void leftRotation(rbLeaf* parentRef);
 	void rbDoubleBlack(rbLeaf* refLeaf);

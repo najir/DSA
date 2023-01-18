@@ -479,8 +479,8 @@ void rbTree::leftRotation(rbLeaf* parentRef) {
 	rbLeaf* tempLeaf = rbleaf(grandRef->viewValue());
 
 	tempLeaf->setColor(grandRef->viewColor);
-	grandRef->setLeft(parentRef->viewRight);           // Replacing values in GP node, rather then switch parents
-	grandRef->setRight(tempLeaf);                      // This is a faster then checking GGP L/R child for GP
+	grandRef->setLeft(parentRef->viewRight);			// Replacing values in GP node, rather then switch parents
+	grandRef->setRight(tempLeaf);						// This is a faster then checking GGP L/R child for GP
 	grandRef->setValue(parentRef->viewValue());
 	grandRef->setColor(parentRef->viewColor);
 
@@ -489,6 +489,24 @@ void rbTree::leftRotation(rbLeaf* parentRef) {
 	tempLeaf->setLeft(parentRef->viewLeft());
 
 	uncleRef->setParent(tempLeaf);
+}
+bool rbTree::rbColorCheck(rbLeaf* refNode) {			// Return 1 if either child is red
+	int returnValue = 0;
+	if (refNode) {
+		rbLeaf* nodeLeft = refNode->viewLeft;
+		rbLeaf* nodeRight = refNode->viewRight;
+		if (nodeLeft) {
+			if (nodeLeft->viewColor == 1) {
+				returnValue = 1
+			}
+		}
+		if (nodeRight) {
+			if (nodeRight->viewColor == 1) {
+				returnValue = 1;
+			}
+		}
+	}
+	return returnValue;
 }
 
 // Performs a BST search to find next empty position and enters new red node. Then calls helper function to swap colors and rotate
@@ -517,7 +535,7 @@ void rbTree::rbInsert(int x) {
 }
 
 // Helper function for inserts, determins what rotations need to be done and what color swaps are needed
-void rbTree::rbColorSwap(rbLeaf* refLeaf) {
+void rbTree::rbInsertHelper(rbLeaf* refLeaf) {
 	rbLeaf* parentRef = refLeaf->viewParent();
 	rbLeaf* uncleRef = nullptr;
 	rbLeaf* grandRef = parentRef->viewParent();
@@ -539,20 +557,20 @@ void rbTree::rbColorSwap(rbLeaf* refLeaf) {
 			// 4 cases of rotations, find out what direction the parent and child are in
 			if (parentRef == grandRef->viewLeft()) {
 				if (refLeaf == parentRef->viewLeft) {    // LL rotation
-					rightRotation(parentRef);
+					rbTree::rightRotation(parentRef);
 				}
 				else {									 // LR rotation
-					leftRotation(refLeaf);
-					rightRotation(parentRef);
+					rbTree::leftRotation(refLeaf);
+					rbTree::rightRotation(parentRef);
 				}
 			}
 			else {
 				if (refLeaf == parentRef->viewRight) {	 // RR rotations
-					leftRotation(parentRef);
+					rbTree::leftRotation(parentRef);
 				}
 				else {					                 // RL rotations, parent right of gp, child left of parent
-					rightRotation(refLeaf);
-					leftRotation(parentRef);
+					rbTree::rightRotation(refLeaf);
+					rbTree::leftRotation(parentRef);
 				}
 			}
 		}
@@ -600,21 +618,88 @@ void rbTree::rbDelete(int x) {
 		}
 		else {									// 0 Children in deleted node
 			// Delete node
+			rbDoubleBlack(nodeRef);
 			delete nodeRef;
 		}
 	}
 
-	//RECOLOR
+	// RECOLOR
 
-	//CHECK SIMPLE CASE
+	// CHECK SIMPLE CASE
 
-	//CALL FOR DOUBLE B CASE
+	// CALL FOR DOUBLE B CASE
 
 }
 
-//recursive function that needs to be called again for certain cases
+// Recursive function that needs to be called again for certain cases
 void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
-	//Check root case
+	rbLeaf* refParent = refLeaf->viewParent;
+	rbLeaf* refSibling = nullptr;
+	rbLeaf* siblingLeft = nullptr;
+	rbLeaf* siblingRight = nullptr;
+	if (refParent->viewLeft == refLeaf) { sibling = refParent->viewRight; }
+	else { sibling = refParent->viewLeft; }
+	if (refSibling) {
+		siblingLeft = refSibling->viewLeft;
+		siblingRight = refSibling->viewRight;s
+	}
+
+
+	if (root != refLeaf) {
+		if (refLeaf->viewColor == 0 && rbTree::rbColorCheck(refLeaf) == 0) {
+			// Checks if siblings children is red
+			if (rbTree::rbColorCheck(refSibling)) {
+				if (refSibling == refParent->viewLeft) {
+					if (siblingLeft && siblingLeft->viewColor == 1) {			// LL
+						rbTree::rightRotation(refParent);
+						siblingLeft->setColor(0);
+					}
+					else {														// LR
+						rbTree::leftRotation(refLeaf);
+						rbTree::rightRotation(refParent);
+						siblingLeft->setColor(0);
+					}
+				}
+				else {
+					if (siblingRight && siblingLeft->viewColor == 1) {			// RR
+						rbTree::leftRotation(refParent);
+						siblingRight->setColor(0);
+					}
+					else {														// RL
+						rbTree::rightRotation(refLeaf);
+						rbTree::leftRotation(refParent);
+						siblingRight->setColor(0);
+					}
+				}
+
+			}
+			// Checks if sibling is red
+			else if (rbTree::rbColorCheck(refLeaf->viewParent)) {
+				if (refLeaf == refParent->viewLeft) {
+					rbTree::leftRotation(refSibling);
+					refSibling->setColor(1);
+				}
+				else {
+					rbTree::rightRotation(refSibling);
+					refSibling->setColor(1);
+				}
+			}
+			// Everything is black
+			else {
+				if (refSibling) { 
+					refSibling->setColor(1); 
+					if (refParent->viewColor == 0) { rbTree::rbDoubleBlack(refParent); }
+					else { refParent->setColor(0); }
+				}
+				else {
+					if (refParent->viewColor == 0) { rbTree::rbDoubleBlack(refParent); }
+					else { refParent->setColor(0); }
+				}
+
+			}
+		}
+	}
+	// Check root case
 
 	//Sibling Black, Child red case
 		//LL
