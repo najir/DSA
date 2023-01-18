@@ -699,18 +699,4 @@ void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
 			}
 		}
 	}
-	// Check root case
-
-	//Sibling Black, Child red case
-		//LL
-		//LR
-		//RR
-		//RL
-
-	//Sibling Black, Child black case
-		//check parent and recur
-
-	//Sibling Red Case
-		//Rotate, recolor, then call function again on same same node. Will perform one if first 2 options
-
 }
