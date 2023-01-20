@@ -80,14 +80,6 @@ public:
 	baseLeaf* viewRight();
 };
 
-class searchNode : public bNode {
-private:
-	baseLeaf* node;
-public:
-	viewNode();
-	setNode(baseLeaf* nodeRef);
-};
-
 class bsTree {
 private:
 	baseLeaf* root;
@@ -105,11 +97,11 @@ public:
 class rbLeaf : public baseLeaf {
 private:
 	rbLeaf* parent;
-	int color;                             // Red = 0 Black = 1
+	int color;                             // Red = 1 Black = 0
 public:
 	void setColor(bool x);                 // 0 for red swap and 1 for black swap
 	void setParent(rbLeaf* rbParent);
-	bool viewColor();                      // Red = 0 Black = 1
+	bool viewColor();                      // Red = 1 Black = 0
 	rbLeaf* viewParent();
 };
 
@@ -125,5 +117,24 @@ public:
 	void rightRotation(rbLeaf* parentRef);
 	void leftRotation(rbLeaf* parentRef);
 	void rbDoubleBlack(rbLeaf* refLeaf);
+};
+
+class avlLeaf : public baseLeaf {
+private:
+	int balanceFactor;
+public:
+	void setParent(avlLeaf* refLeaf);
+	int viewBalance(avlLeaf* refLeaf);
+};
+
+class avlTree {
+private:
+
+public:
+	void avlInsert(int x);
+	void avlDelete(int x);
+	avlLeaf* avlSearch(int x);
+	void leftRotation(avlLeaf* refLeaf);
+	void rightRotation(avlLeaf* refLeaf);
 };
 #endif

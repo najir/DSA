@@ -428,7 +428,7 @@ rbLeaf* rbLeaf::viewParent() {
 
 /******************************
 *  Red Black Search Tree Main Functions
-*  Red = 0 Black = 1
+*  Red = 1 Black = 0
 ******************************/
 APPLICATION_H::rbTree::rbTree	() {
 	root = nullptr;
@@ -622,13 +622,6 @@ void rbTree::rbDelete(int x) {
 			delete nodeRef;
 		}
 	}
-
-	// RECOLOR
-
-	// CHECK SIMPLE CASE
-
-	// CALL FOR DOUBLE B CASE
-
 }
 
 // Recursive function that needs to be called again for certain cases
@@ -643,8 +636,6 @@ void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
 		siblingLeft = refSibling->viewLeft;
 		siblingRight = refSibling->viewRight;s
 	}
-
-
 	if (root != refLeaf) {
 		if (refLeaf->viewColor == 0 && rbTree::rbColorCheck(refLeaf) == 0) {
 			// Checks if siblings children is red
@@ -700,3 +691,7 @@ void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
 		}
 	}
 }
+/******************************
+*  AVL Tree functions
+******************************/
+

@@ -3,17 +3,15 @@ Isaac Perks 12/5/22
 <br />
 # Description
 _____________________
-DSA(Data Structures & Algorithms) is a simple project created to serve as practice for myself and proof of work for others.
+DS(Data Structures) is a simple project created to serve as practice for myself and proof of work for others.
 	<br />
-	The goal will be to write a program that contains any seemingly important data structure or algorithm that I may find beneficial
-	to work on. Hopefully this will expand to a visualized project with a responsive application front end and UI and/or web access.
+	Originally the goal was to write a set of Data Structures and Algorithms, but due to size this project is now a point of
+	practice and education on all the datastructures I can find info on.
 	<br />
-	Each individual structure and algorithm will be listed here and my motivation and thoughts on the process will be added to each section
-	as they are completed.
+	The Exactly types of data structures, a few short details, and other relevant info are seperate and listed below.
 	<br />
 Important updates and notes will also be found here as neccessary:
-- I wanted to note that I've attempted to write my structures and algorithms iteratively where possible with the goal of improved
-readability and my own personal preference. I may write them again recursively for practice.
+- Splitting the project into 2 seperate ones due to size, it's compliment will be an algorithms project here: "N/A"
 
 ## Data Structures
 ______________________
@@ -35,4 +33,7 @@ use of traversals and BST deletion operations needed in rb deletions.
 ### Red/Black Tree
 Created tree and leaf class for a red/black sorting tree. Leaf contains left/right nodes along with a set color of 
 red(0) or black(1)
+### AVL Tree
+Set up tree and AVL leaf class using leaf base. Leaf contains left/right and balance factor. Code itself is recursive
+to remove parent variable and parent calls.
 
