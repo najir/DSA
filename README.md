@@ -3,15 +3,18 @@ Isaac Perks 12/5/22
 <br />
 # Description
 _____________________
-DS(Data Structures) is a simple project created to serve as practice for myself and proof of work for others.
+DS(Data Structures) is a simple project created to serve as practice.
 	<br />
 	Originally the goal was to write a set of Data Structures and Algorithms, but due to size this project is now a point of
-	practice and education on all the datastructures I can find info on.
+	practice and education on any data structure I find interesting or worth learning.
 	<br />
-	The Exactly types of data structures, a few short details, and other relevant info are seperate and listed below.
+	A current list of Data Structure and small details/info are provided below.
 	<br />
-Important updates and notes will also be found here as neccessary:
-- Splitting the project into 2 seperate ones due to size, it's compliment will be an algorithms project here: "N/A"
+Other Comments:
+- I tend to lean towards iterative functions where a recursive one may have been simpler. This is inconsistent between
+seperate structures
+- With AVL tree's nearing completion, I plan to step away from this for a moment and shift to other projects. This project
+has taken more time then I expected as it was extremely dry in nature.
 
 ## Data Structures
 ______________________
@@ -31,9 +34,11 @@ and currently incomplete insert/delete functions.
 12/26/22: Implementing Pre/In/Post, Level, zigzag, odd/even traversals before completing my r/b tree due to the
 use of traversals and BST deletion operations needed in rb deletions.
 ### Red/Black Tree
-Created tree and leaf class for a red/black sorting tree. Leaf contains left/right nodes along with a set color of 
-red(0) or black(1)
+Created tree and leaf class for a red/black sorting tree. Leaf contains left/right/parent nodes along with a set color of 
+red(0) or black(1).
 ### AVL Tree
-Set up tree and AVL leaf class using leaf base. Leaf contains left/right and balance factor. Code itself is recursive
-to remove parent variable and parent calls.
+Inherited Leaf Node with added balance variable. Balance is checked at each pass of recursion and rotations are applied
+as a recursion ends.
+### Spanning Tree
+N/A
 
