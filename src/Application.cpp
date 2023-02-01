@@ -119,7 +119,7 @@ bNode* bNode::viewNext() {
 	return next;
 }
 
-bool qNode::setPrevious(bNode* refNode) {
+bool qNode::setPrevious(qNode* refNode) {
 	bool returnValue = 0;
 	if (refNode) {
 		previous = refNode;
@@ -250,11 +250,11 @@ bsLeaf baseLeaf::viewRight() {
 	return left;
 }
 
-void baseLeaf::setLeft(bsLeaf* refLeaf) {
+void baseLeaf::setLeft(baseLeaf* refLeaf) {
 	left = refLeaf;
 }
 
-void baseLeaf::setRight(bsLeaf* refLeaf) {
+void baseLeaf::setRight(baseLeaf* refLeaf) {
 	right = refLeaf;
 }
 
@@ -350,7 +350,7 @@ void bsTree::bsDelete(int x) {
 	}
 }
 
-void bsInorder(baseLeaf* leafRef, bStack* bstStack) {
+void bsTree::bsInorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (node) {
 		bsInorder(leafRef->viewLeft, bstStack);
 		bstStack->push(leafRef->viewValue);
@@ -359,7 +359,7 @@ void bsInorder(baseLeaf* leafRef, bStack* bstStack) {
 
 }
 
-void bsPreorder(baseLeaf* leafRef, bStack* bstStack) {
+void bsTree::bsPreorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (node) {
 		bstStack->push(leafRef->viewValue);
 		bsPreorder(leafRef->viewLeft, bstStack);
@@ -368,7 +368,7 @@ void bsPreorder(baseLeaf* leafRef, bStack* bstStack) {
 
 }
 
-void bsPostorder(baseLeaf* leafRef, bStack* bstStack) {
+void bsTree::bsPostorder(baseLeaf* leafRef, bStack* bstStack) {
 	if (leafRef) {
 		bsPostorder(leafRef->viewLeft, bstStack);
 		bsPostorder(leafRef->viewRight, bstStack);
@@ -376,7 +376,7 @@ void bsPostorder(baseLeaf* leafRef, bStack* bstStack) {
 	}
 }
 
-void bsLevel(baseLeaf* leafRef, bQueue* bstQueue) {
+void bsTree::bsLevel(baseLeaf* leafRef, bQueue* bstQueue) {
 	if (leafRef && bstQueue) {
 		searchNode* rootNode = searchNode(leafRef);
 		bQueue* tempQueue = bQueue();
@@ -390,7 +390,7 @@ void bsLevel(baseLeaf* leafRef, bQueue* bstQueue) {
 	}
 }
 
-void bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {  // Going to come back to this when I complete r/b Trees
+void bsTree::bsZigzag(baseLeaf* leafRef, bQueue* bstQueue) {  // Going to come back to this when I complete r/b Trees
 	if (leafRef) {
 
 	}
@@ -430,7 +430,7 @@ rbLeaf* rbLeaf::viewParent() {
 *  Red Black Search Tree Main Functions
 *  Red = 1 Black = 0
 ******************************/
-APPLICATION_H::rbTree::rbTree	() {
+APPLICATION_H::rbTree::rbTree() {
 	root = nullptr;
 };
 
@@ -691,7 +691,149 @@ void rbTree::rbDoubleBlack(rbLeaf* refLeaf) {
 		}
 	}
 }
+
+
+
+/******************************
+*  AVL Node functions
+******************************/
+avlLeaf::avlLeaf(int x) {
+	this->balanceFactor = 0;
+	this->setValue(x);
+}
+void avlLeaf::setBalance(int x) {
+	this->balanceFactor = x;
+}
+int avlLeaf::viewBalance() {
+	return this->balanceFactor;
+}
+
+
 /******************************
 *  AVL Tree functions
 ******************************/
+avlTree::avlTree(int x) {
+	this->root = new avlLeaf(x);
+}
+void avlTree::avlInsert(int x) {
+	this->avlInsertHelper(this->viewRoot, x);
+}
+void avlTree::avlInsertHelper(avlLeaf* refNode, int x) {
+	if(refNode){
+		if (x > refNode->viewValue) {
+			refNode->setBalance(refNode->viewBalance() - 1);
+			if (!refNode->viewRight()) { refNode->setRight(new avlLeaf(x)); }
+			else { this->avlInsertHelper(refNode->viewRight(), x); }
+		}
+		else {
+			refNode->setBalance(refNode->viewBalance() + 1);
+			if (!refNode->viewLeft()) { refNode->setLeft(new avlLeaf(x)); }
+			else { this->avlInsertHelper(refNode->viewLeft(), x); }
+		}
+		// Left unbalance
+		if (refNode->viewBalance() > 1) {
+			if (refNode->viewLeft()->viewLeft()) {
+				this->leftRotation(refNode);
+			}
+			else {
+				this->rightRotation(refNode);
+				this->leftRotation(refNode);
+			}
+		}
+		// Right unbalance
+		else if (refNode->viewBalance < 1) {
+			if (refNode->viewRight()->viewRight()) {
+				this->rightRotation(refNode);
+			}
+			else {
+				this->leftRotation(refNode);
+				this->rightRotation(refNode);
+			}
+		}
+	}
+}
+void avlTree::avlDelete(int x) {
+	//BST delete, check balances and rotate
+	this->avlDeleteHelper(this->viewRoot, x);
+}
+void avlTree::avlDeleteNode(avlLeaf* refNode) {
 
+}
+void avlTree::avlDeleteHelper(avlLeaf* refNode, int x) {
+	if (refNode) {
+		if (x == refNode->viewValue) {
+			this->avlDeleteHelper(refNode);
+		}
+		if (x > refNode->viewValue) {
+			refNode->setBalance(refNode->viewBalance() + 1);
+			this->avlInsertHelper(refNode->viewRight(), x);
+		}
+		else {
+			refNode->setBalance(refNode->viewBalance() - 1);
+			this->avlInsertHelper(refNode->viewLeft(), x);
+		}
+		// Left unbalance
+		if (refNode->viewBalance() > 1) {
+			if (refNode->viewLeft()->viewLeft()) {
+				this->leftRotation(refNode);
+			}
+			else {
+				this->rightRotation(refNode);
+				this->leftRotation(refNode);
+			}
+		}
+		// Right unbalance
+		else if (refNode->viewBalance < 1) {
+			if (refNode->viewRight()->viewRight()) {
+				this->rightRotation(refNode);
+			}
+			else {
+				this->leftRotation(refNode);
+				this->rightRotation(refNode);
+			}
+		}
+	}
+}
+// Going to rewrite this to not use to ptr's and use an iter value instead.
+avlLeaf* avlTree::avlSearch(int x) {
+	avlLeaf* returnNode = nullptr;
+	avlLeaf* tempNode = this->viewRoot();
+	while (tempNode) {
+		if (tempNode->viewValue == x) {
+			returnNode = tempNode;
+			tempNode = nullptr;
+		}
+		if (tempNode->viewValue > x) { tempNode = tempNode->viewLeft(); }
+		else{ tempNode = tempNode->viewRight() }
+	}
+	delete tempNode;
+	return returnNode;
+}
+avlLeaf* avlTree::viewRoot() {
+	return this->root;
+}
+//Rotations are done at the highest edge, as we do not have access to parent data
+void avlTree::leftRotation(avlLeaf* refLeaf) {
+	avlLeaf* grandparentTemp = new avlLeaf(refLeaf->viewValue());
+	avlLeaf* parentRef = refLeaf->viewLeft();
+	avlLeaf* childRef = parentRef->viewLeft();
+
+	grandparentTemp->setRight(refLeaf->viewRight());
+	grandparentTemp->setLeft(parentRef->viewRight());
+	refLeaf->setValue(parentRef->viewValue());
+	refLeaf->setLeft(childRef);
+	refLeaf->setRight(grandparentTemp);
+	delete parentRef;
+}
+void avlTree::rightRotation(avlLeaf* refLeaf) {
+	avlLeaf* grandparentTemp = new avlLeaf(refLeaf->viewValue());
+	avlLeaf* parentRef = refLeaf->viewRight();
+	avlLeaf* childRef = parentRef->viewRight();
+
+	grandparentTemp->setLeft(refLeaf->viewLeft();
+	grandparentTemp->setRight(parentRef->viewLeft());
+	refLeaf->setValue(parentRef->viewValue());
+	refLeaf->setRight(childRef);
+	refLeaf->setLeft(grandparentTemp);
+	delete parentRef;
+}

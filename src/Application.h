@@ -123,17 +123,21 @@ class avlLeaf : public baseLeaf {
 private:
 	int balanceFactor;
 public:
-	void setParent(avlLeaf* refLeaf);
-	int viewBalance(avlLeaf* refLeaf);
+	void setBalance(int x);
+	int viewBalance();
 };
 
 class avlTree {
 private:
-
+	avlLeaf* root;
 public:
 	void avlInsert(int x);
+	void avlInsertHelper(avlLeaf* refNode, int x);
 	void avlDelete(int x);
+	void avlDeleteHelper(avlLeaf* refNode, int x);
+	void avlDeleteNode(avlLeaf* refNode);
 	avlLeaf* avlSearch(int x);
+	avlLeaf* viewRoot();
 	void leftRotation(avlLeaf* refLeaf);
 	void rightRotation(avlLeaf* refLeaf);
 };
